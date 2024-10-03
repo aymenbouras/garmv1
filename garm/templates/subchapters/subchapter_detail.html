@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ subchapter.name }}</h1>
+<p>{{ subchapter.content }}</p>
+
+<h2>Media</h2>
+<ul>
+    {% for media in subchapter.media.all %}
+    <li>{{ media.name }} ({{ media.media_type }})</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'subchapters:edit' slug=subchapter.slug %}">Edit SubChapter</a>
+<form method="POST" action="{% url 'subchapters:delete' slug=subchapter.slug %}">
+    {% csrf_token %}
+    <button type="submit">Delete SubChapter</button>
+</form>
+
+<a href="{% url 'subchapters:create' %}">Create New SubChapter</a>
+{% endblock %}

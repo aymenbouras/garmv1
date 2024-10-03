@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{% if chapter %}Edit Chapter{% else %}Create Chapter{% endif %}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if chapter %}Update{% else %}Create{% endif %}</button>
+</form>
+
+<a href="{% url 'chapters:list' %}">Back to Chapter List</a>
+{% endblock %}

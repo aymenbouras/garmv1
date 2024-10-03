@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ course.name }}</h1>
+<p>{{ course.description }}</p>
+<p><strong>Duration:</strong> {{ course.duration }} hours</p>
+<p><strong>Skills:</strong> {{ course.skills.all|join:", " }}</p>
+
+<h2>Chapters</h2>
+<ul>
+    {% for chapter in course.chapters.all %}
+    <li>
+        <a href="{% url 'chapters:detail' slug=chapter.slug %}">{{ chapter.name }}</a>
+        ({{ chapter.order }})
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'courses:edit' slug=course.slug %}">Edit Course</a>
+<form method="POST" action="{% url 'courses:delete' slug=course.slug %}">
+    {% csrf_token %}
+    <button type="submit">Delete Course</button>
+</form>
+
+<a href="{% url 'courses:create' %}">Create New Course</a>
+{% endblock %}

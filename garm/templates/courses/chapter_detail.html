@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ chapter.name }}</h1>
+<p>{{ chapter.content }}</p>
+
+<h2>SubChapters</h2>
+<ul>
+    {% for subchapter in chapter.subchapters.all %}
+    <li>
+        <a href="{% url 'subchapters:detail' slug=subchapter.slug %}">{{ subchapter.name }}</a>
+        ({{ subchapter.order }})
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'chapters:edit' slug=chapter.slug %}">Edit Chapter</a>
+<form method="POST" action="{% url 'chapters:delete' slug=chapter.slug %}">
+    {% csrf_token %}
+    <button type="submit">Delete Chapter</button>
+</form>
+
+<a href="{% url 'chapters:create' %}">Create New Chapter</a>
+{% endblock %}

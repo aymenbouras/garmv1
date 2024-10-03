@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{% if subchapter %}Edit SubChapter{% else %}Create SubChapter{% endif %}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if subchapter %}Update{% else %}Create{% endif %}</button>
+</form>
+
+<a href="{% url 'subchapters:list' %}">Back to SubChapter List</a>
+{% endblock %}

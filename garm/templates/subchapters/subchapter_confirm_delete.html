@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Delete SubChapter: {{ subchapter.name }}</h1>
+<p>Are you sure you want to delete this subchapter?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Confirm Deletion</button>
+</form>
+
+<a href="{% url 'subchapters:detail' slug=subchapter.slug %}">Cancel</a>
+{% endblock %}
